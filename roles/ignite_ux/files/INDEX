@@ -1,0 +1,21 @@
+# /var/opt/ignite/data/INDEX
+# This file is used to define the Ignite-UX configurations
+# and to define which config files are associated with each
+# configuration.  See the ignite(5), instl_adm(4), and
+# manage_index(1M) man pages for details.
+# 
+# NOTE: The manage_index command is used to maintain this file.
+#       Comments, logic expressions and formatting changes are not
+#       preserved by manage_index.
+# 
+# WARNING: User comments (lines beginning with '#' ), and any user
+#          formatting in the body of this file are _not_ preserved
+#          when the version of Ignite-UX is updated.
+#
+cfg "HP-UX B.11.31 Default" {
+        description "This selection supplies the default system configuration that HP supplies for the B.11.31 release."
+        "/opt/ignite/data/Rel_B.11.31/config"
+        "/opt/ignite/data/Rel_B.11.31/hw_patches_cfg"
+        "/var/opt/ignite/data/Rel_B.11.31/core_archive_cfg"
+        "/var/opt/ignite/data/config.local"
+}

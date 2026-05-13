@@ -1,0 +1,80 @@
+---
+- name: "Ensure logical volumes meet size prerequisites"
+  ansible.builtin.include_tasks: resize_lv.yml
+  loop: "{{ ignite_logical_volumes }}"
+
+- name: "Check if Ignite-UX is installed"
+  ansible.builtin.command: "/usr/sbin/swlist Ignite-UX"
+  register: ignite_install_check
+  failed_when: false
+  changed_when: false
+
+- name: "Installation Block"
+  when: ignite_install_check.rc != 0
+  block:
+    - name: "Copy depot files to the server"
+      ansible.builtin.copy:
+        src: "{{ ignite_depot_filename }}"
+        dest: "{{ ignite_staging_dir }}/{{ ignite_depot_filename }}"
+        mode: '0644'
+
+    - name: "Install Ignite-UX"
+      community.general.swdepot:
+        name: Ignite-UX
+        state: present
+        depot: "{{ ignite_staging_dir }}/{{ ignite_depot_filename }}"
+
+    - name: "Remove depot files after install"
+      ansible.builtin.file:
+        path: "{{ ignite_staging_dir }}/{{ ignite_depot_filename }}"
+        state: absent
+
+- name: "Check if Ignite share is present"
+  ansible.builtin.command: "share"
+  register: ignite_share_check
+  changed_when: false
+
+- name: "Ensure Ignite NFS shares are enabled"
+  ansible.builtin.command: "/opt/ignite/lbin/setup_server -n"
+  when: "'/var/opt/ignite/clients' not in ignite_share_check.stdout"
+  register: ignite_share_out
+  failed_when: "'Program completed successfully' not in ignite_share_out.stdout"
+
+- name: "Ensure Ignite archive entry is present in dfstab"
+  ansible.builtin.lineinfile:
+    path: /etc/dfs/dfstab
+    line: "share -F nfs -o anon=2,ro /var/opt/ignite/archives/Rel_B.11.31"
+    state: present
+  notify: refresh nfs shares
+
+- name: "Ensure the bootpd daemon is enabled and running"
+  ansible.builtin.lineinfile:
+    path: /etc/inetd.conf
+    regexp: '^#\s*(bootps\s+dgram\s+udp\s+wait\s+root\s+/usr/lbin/bootpd\s+bootpd)'
+    line: 'bootps dgram udp wait root /usr/lbin/bootpd bootpd'
+    backrefs: yes
+  notify: reload inetd
+
+- name: "Ensure Rel_B.11.31 directories are present"
+  ansible.builtin.file:
+    path: "{{ item }}/Rel_B.11.31"
+    state: directory
+    mode: '0755'
+  loop:
+    - /var/opt/ignite/data
+    - /var/opt/ignite/archives
+    - /var/opt/ignite/depots
+
+- name: "Ensure Ignite INDEX file is present"
+  ansible.builtin.copy:
+    src: "INDEX"
+    dest: "/var/opt/ignite/data/INDEX"
+    mode: '0644'
+
+- name: "Ensure user-specified Ignite files are copied"
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/files/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode | default('0644') }}"
+  loop: "{{ ignite_user_files }}"
+  when: ignite_user_files is defined

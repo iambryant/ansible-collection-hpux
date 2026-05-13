@@ -1,0 +1,15 @@
+---
+- name: "Ensure ntpd is enabled in netdaemons"
+  lineinfile:
+    path: /etc/rc.config.d/netdaemons
+    regexp: '^export XNTPD='
+    line: "export XNTPD=1"
+
+- name: "Ensure ntp.conf is present"
+  template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
+    owner: bin
+    group: bin
+    mode: '0644'
+  notify: restart ntpd

@@ -1,0 +1,3 @@
+---
+- name: restart ntpd
+  shell: "/sbin/init.d/ntpd stop; /sbin/init.d/ntpd start"

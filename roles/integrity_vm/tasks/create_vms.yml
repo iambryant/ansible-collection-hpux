@@ -1,0 +1,15 @@
+- name: "Ensure VM disks are present as logical volumes"
+  ansible.builtin.command: lvcreate -n {{ item.vm_name }} -L {{ item.lv_size }} {{ item.vg_name }}
+  args:
+    creates: "/dev/{{ item.vg_name }}/r{{ item.vm_name }}"
+  loop: "{{ integrity_guests }}"
+
+- name: "Ensure VMs are present"
+  ansible.builtin.command: >
+    /opt/hpvm/bin/hpvmcreate -P {{ item.vm_name }} -O HPUX -c {{ item.cpus }} -r {{ item.ram_size }}
+    {{ '-B auto' if item.autoboot else '' }}
+    -a disk:avio_stor::lv:/dev/{{ item.vg_name }}/r{{ item.vm_name }}
+    -a network:avio_lan:{{ '1,0,0x' + item.mac_address if item.mac_address else '' }}:vswitch:{{ item.vswitch_name }}
+  args:
+    creates: "/var/opt/hpvm/guests/{{ item.vm_name }}"
+  loop: "{{ integrity_guests }}"
