@@ -1,3 +1,4 @@
+---
 - name: "Ensure VM disks are present as logical volumes"
   ansible.builtin.command: lvcreate -n {{ item.vm_name }} -L {{ item.lv_size }} {{ item.vg_name }}
   args:

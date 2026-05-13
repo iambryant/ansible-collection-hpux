@@ -29,7 +29,7 @@ in the `files` directory of your playbook.
         mount_path: "/opt"
         target_size: 2048
 
-The logical volumes that you want to resize for Ignite-UX. Defaults to the values defined in HP's documentation
+The list of logical volumes that you want to resize for Ignite-UX. Defaults to the values defined in HP's documentation
 (see top of README).
 
 ## Dependencies

@@ -52,7 +52,7 @@
     path: /etc/inetd.conf
     regexp: '^#\s*(bootps\s+dgram\s+udp\s+wait\s+root\s+/usr/lbin/bootpd\s+bootpd)'
     line: 'bootps dgram udp wait root /usr/lbin/bootpd bootpd'
-    backrefs: yes
+    backrefs: true
   notify: reload inetd
 
 - name: "Ensure Rel_B.11.31 directories are present"

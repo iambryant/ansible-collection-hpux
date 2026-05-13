@@ -9,7 +9,8 @@
   when: "'Running on an HPVM host' not in hpvm_check.stdout"
   block:
     - name: "Install Integrity VM"
-      ansible.builtin.command: "/usr/sbin/swinstall -x autoreboot=true -s {{ hpux_sdux_server }}:{{ hpux_sdux_server_path }} BB068AA VirtualBase"
+      ansible.builtin.command: >
+        /usr/sbin/swinstall -x autoreboot=true -s {{ hpux_sdux_server }}:{{ hpux_sdux_server_path }} BB068AA VirtualBase
       async: 300
       poll: 0
 
