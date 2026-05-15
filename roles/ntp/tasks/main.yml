@@ -1,10 +1,4 @@
 ---
-- name: "Ensure ntpd is enabled in netdaemons"
-  ansible.builtin.lineinfile:
-    path: /etc/rc.config.d/netdaemons
-    regexp: '^export XNTPD='
-    line: "export XNTPD=1"
-
 - name: "Ensure ntp.conf is present"
   ansible.builtin.template:
     src: ntp.conf.j2
@@ -13,3 +7,9 @@
     group: bin
     mode: '0644'
   notify: restart ntpd
+
+- name: "Ensure ntpd is enabled in netdaemons"
+  ansible.builtin.lineinfile:
+    path: /etc/rc.config.d/netdaemons
+    regexp: '^export XNTPD='
+    line: "export XNTPD=1"
