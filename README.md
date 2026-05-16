@@ -19,17 +19,6 @@ Roles included in this collection:
   - `lpars.hpux.integrity_vm` ([documentation](https://github.com/lpars/ansible-collection-hpux/blob/main/roles/integrity_vm/README.md))
   - `lpars.hpux.ntp` ([documentation](https://github.com/lpars/ansible-collection-hpux/blob/main/roles/ntp/README.md))
 
-## Dependencies
-
-This collection depends on the `community.general` collection. Make sure that you add it under the`collections`
-section of your `requirements.yml` file.
-
-```yaml
----
-collections:
-  - name: community.general
-```
-
 ## License
 
 MIT
