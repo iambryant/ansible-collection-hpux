@@ -2,7 +2,8 @@
 
 [![CI](https://github.com/LPARS/ansible-collection-hpux/actions/workflows/ci.yml/badge.svg)](https://github.com/LPARS/ansible-collection-hpux/actions/workflows/ci.yml)
 
-This collection includes roles for automating common tasks in HP-UX.
+This collection includes roles for automating common tasks in HP-UX. If you'd like to see an example of this
+collection's usage, see: https://github.com/LPARS/hpux-dev-playbook.
 
 ## Requirements
 
