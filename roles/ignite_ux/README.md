@@ -22,12 +22,12 @@ The name of the `.depot` file that will be copied to the target node for a local
 in the `files` directory of your playbook.
 
     logical_volumes:
-      - lv_path: "/dev/vg00/lvol8"
-        mount_path: "/var"
-        target_size: 9216
       - lv_path: "/dev/vg00/lvol6"
         mount_path: "/opt"
-        target_size: 2048
+        target_size: 8192
+      - lv_path: "/dev/vg00/lvol8"
+        mount_path: "/var"
+        target_size: 16384
 
 The list of logical volumes that you want to resize for Ignite-UX. Defaults to the values defined in HP's documentation
 (see top of README).
