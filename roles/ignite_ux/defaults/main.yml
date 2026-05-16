@@ -1,6 +1,6 @@
 ---
 ignite_staging_dir: "/var/tmp"
-ignite_depot_filename: ""
+ignite_depot: ""
 
 ignite_logical_volumes:
   - lv_path: "/dev/vg00/lvol8"

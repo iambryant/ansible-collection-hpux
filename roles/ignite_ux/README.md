@@ -16,7 +16,7 @@ for compatible Python packages.
 
 The temporary directory to copy `.depot` files to for local installs.
 
-    ignite_depot_filename: ""
+    ignite_depot: ""
 
 The name of the `.depot` file that will be copied to the target node for a local install. Make sure to place it
 in the `files` directory of your playbook.
@@ -44,7 +44,7 @@ The list of logical volumes that you want to resize for Ignite-UX. Defaults to t
       vars:
         ansible_python_interpreter: "/usr/local/bin/python3"
         ansible_remote_tmp: "/var/tmp/.ansible"
-        ignite_depot_filename: "HP_UX_11i_v3_Ignite-UX-11.31_C.7.29.2_HP-UX_B.11.11_32_64.depot"
+        ignite_depot: "HP_UX_11i_v3_Ignite-UX-11.31_C.7.29.2_HP-UX_B.11.11_32_64.depot"
         ignite_user_files:
           - src: "bootptab"
             dest: "/etc/bootptab"
