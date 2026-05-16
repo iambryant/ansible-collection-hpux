@@ -1,0 +1,8 @@
+version: 1.0.0
+name: hpux
+namespace: lpars
+authors:
+  - lpars
+description: Collection for managing hpux servers
+license:
+  - MIT
