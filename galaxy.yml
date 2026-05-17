@@ -20,7 +20,7 @@ tags:
   - hpux
 
 dependencies:
-  community.general: ">=12.0.0"
+  community.general: ">=11.0.0"
 
 repository: https://github.com/LPARS/ansible-collection-hpux
 
