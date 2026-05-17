@@ -9,3 +9,5 @@ ignite_logical_volumes:
   - lv_path: "/dev/vg00/lvol8"
     mount_path: "/var"
     lv_size: 16384
+
+ignite_user_files: []

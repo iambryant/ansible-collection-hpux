@@ -72,9 +72,9 @@
     mode: '0644'
 
 - name: "Ensure user-specified Ignite files are copied"
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
-    mode: "{{ item.mode | default('0644') }}"
+    mode: '0644'
   loop: "{{ ignite_user_files }}"
-  when: ignite_user_files is defined
+  when: ignite_user_files | length > 0

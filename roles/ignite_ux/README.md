@@ -19,7 +19,7 @@ The temporary directory to copy `.depot` files to for local installs.
     ignite_depot: ""
 
 The name of the `.depot` file that will be copied to the target node for a local install. Make sure to place it
-in the `files` directory of your playbook.
+in the `files/` directory adjacent to your playbook.
 
     logical_volumes:
       - lv_path: "/dev/vg00/lvol6"
@@ -32,6 +32,10 @@ in the `files` directory of your playbook.
 The list of logical volumes that you want to resize for Ignite-UX. Defaults to the values defined in HP's documentation
 (see top of README).
 
+ignite_user_files: []
+
+The list of files/templates you want to be copied to the Ignite-UX server, such as scripts, config files, etc.
+Make sure to place them inside the `files/` or `templates/` directory adjacent to your playbook.
 ## Dependencies
 
     - community.general
