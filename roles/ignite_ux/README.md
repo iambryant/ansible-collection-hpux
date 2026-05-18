@@ -34,32 +34,36 @@ The list of logical volumes that you want to resize for Ignite-UX. Defaults to t
 
 ignite_user_files: []
 
-The list of files you want to be copied to the Ignite-UX server.
-Make sure to place them inside the `files/` directory adjacent to your playbook.
+The list of files you want to be copied to the Ignite-UX server. Supports the following parameters:
+
+| Parameter      | Type    | Required | Description                                 |
+| :---           | :---    | :---     | :---                                        |
+| `src`          | String  | **Yes**  | The file to copy to the target node.        |
+| `dest`         | String  | **Yes**  | The destination directory to place the file.|
+
+Make sure to place the files inside the `files/` directory adjacent to your playbook.
 
 ignite_user_templates: []
 
-The list of templates you want to be rendered on the Ignite-UX server.
-Make sure to place them inside the `templates/` directory adjacent to your playbook.
+The list of templates you want to be rendered on the Ignite-UX server. Supports the following parameters:
+
+| Parameter      | Type    | Required | Description                                      |
+| :---           | :---    | :---     | :---                                             |
+| `src`          | String  | **Yes**  | The template to render on the target node.       |
+| `dest`         | String  | **Yes**  | The destination directory to place the template. |
+
+Make sure to place the templates inside the `templates/` directory adjacent to your playbook.
 
 ## Dependencies
 
-    - community.general
+None.
 
 ## Example Playbook
 
-    - name: "Deploy Ignite-UX"
-      hosts: ignite_ux
+    - hosts: all
       become: true
       vars:
-        ansible_python_interpreter: "/usr/local/bin/python3"
-        ansible_remote_tmp: "/var/tmp/.ansible"
-        ignite_depot: "HP_UX_11i_v3_Ignite-UX-11.31_C.7.29.2_HP-UX_B.11.11_32_64.depot"
-        ignite_user_files:
-          - src: "bootptab"
-            dest: "/etc/bootptab"
-          - src: "instl_boottab"
-            dest: "/etc/opt/ignite/instl_boottab"
+        ansible_python_interpreter: /usr/local/bin/python3
       roles:
         - lpars.hpux.ignite_ux
 

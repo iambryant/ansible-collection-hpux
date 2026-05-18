@@ -21,7 +21,7 @@ None.
 
 ## Example Playbook
 
-    - hosts: integrity_vm
+    - hosts: all
       become: true
       vars:
         ansible_python_interpreter: /usr/local/bin/python3

@@ -29,18 +29,19 @@ The name of the default vswitch that vPars/VMs will use. Defaults to `vsw0`.
 The interface index to bind the vswitch to (e.g. lan0, lan1). Defaults to `0` for lan0.
 
     integrity_guests: []
+
 A list of dictionaries defining the vPars/VMs to be created. Supports the following parameters:
 
-| Parameter      | Type    | Required | Description                                                                    |
-| :---           | :---    | :---     | :---                                                                           |
-| `vm_name`      | String  | **Yes**  | The name of the VM. Will also be used as the logical volume name.              |
-| `cpus`         | Integer | **Yes**  | The number of CPUs to assign to the VM.                                        |
-| `ram_size`     | String  | **Yes**  | The size of RAM to assign to the VM (e.g. `"8G"`).                             |
-| `vg_name`      | String  | **Yes**  | The volume group to store the VM disk on.                                      |
-| `lv_size`      | Integer | **Yes**  | The size of the logical volume to use for the VM in MB (e.g. `65536` for 64GB).|
-| `vswitch_name` | String  | **Yes**  | The virtual switch name to use for the VM.                                     |
-| `mac_address`  | String  | No       | The specific MAC address to assign to the VM.                                  |
-| `autoboot`     | Boolean | No       | Whether or not to automatically boot the VM on hypervisor startup.             |
+| Parameter      | Type    | Required | Description                                                                     |
+| :---           | :---    | :---     | :---                                                                            |
+| `vm_name`      | String  | **Yes**  | The name of the VM. Will also be used as the logical volume name.               |
+| `cpus`         | Integer | **Yes**  | The number of CPUs to assign to the VM.                                         |
+| `ram_size`     | String  | **Yes**  | The size of RAM to assign to the VM (e.g. `"8G"`).                              |
+| `vg_name`      | String  | **Yes**  | The volume group to store the VM disk on.                                       |
+| `lv_size`      | Integer | **Yes**  | The size of the logical volume to use for the VM in MB (e.g. `65536` for 64GB). |
+| `vswitch_name` | String  | **Yes**  | The virtual switch name to use for the VM.                                      |
+| `mac_address`  | String  | No       | The specific MAC address to assign to the VM.                                   |
+| `autoboot`     | Boolean | No       | Whether or not to automatically boot the VM on hypervisor startup.              |
 
 ## Dependencies
 
@@ -48,7 +49,7 @@ None.
 
 ## Example Playbook
 
-    - hosts: integrity_vm
+    - hosts: all
       become: true
       vars:
         ansible_python_interpreter: /usr/local/bin/python3
