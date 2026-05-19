@@ -17,12 +17,9 @@ collections:
 
 ## Requirements
 
-These roles have been developed and verified against the following configuration:
-
-* **OS:** HP-UX 11i v3 (B.11.31)
-* **Release:** Data Center Operating Environment (DCOE) - May 2025
-* **Architecture:** Itanium (IA64)
-* **Python:** 3.11.14
+* **OS:** HP-UX 11i v3 (B.11.31) on Itanium (IA64).
+* **Python:** Ansible requires Python 3. See the [HP-UX Porting and Archive Centre](http://hpux.connect.org.uk)
+for compatible Python packages.
 
 ## Included Roles
 
@@ -33,6 +30,7 @@ Roles included in this collection:
   - `lpars.hpux.ntp` ([documentation](https://github.com/lpars/ansible-collection-hpux/blob/main/roles/ntp/README.md))
 
 ## Usage
+
 To see an example of this collection's usage, see: https://github.com/LPARS/hpux-dev-playbook.
 
 ## License
