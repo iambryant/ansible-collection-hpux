@@ -1,6 +1,6 @@
 # Ansible Collection: HP-UX
 
-[![CI](https://github.com/LPARS/ansible-collection-hpux/actions/workflows/ci.yml/badge.svg)](https://github.com/LPARS/ansible-collection-hpux/actions/workflows/ci.yml)
+[![CI](https://github.com/iambryant/ansible-collection-hpux/actions/workflows/ci.yml/badge.svg)](https://github.com/iambryant/ansible-collection-hpux/actions/workflows/ci.yml)
 
 This collection includes roles for automating common tasks in HP-UX.
 
@@ -11,7 +11,7 @@ You can include this collection in your `requirements.yml` like this:
 ```
 collections:
   - name: iambryant.hpux
-    source: https://github.com/LPARS/ansible-collection-hpux
+    source: https://github.com/iambryant/ansible-collection-hpux
     type: git
 ```
 
@@ -28,7 +28,7 @@ for compatible Python packages.
 
 ## Usage
 
-To see an example of this collection's usage, see: https://github.com/LPARS/hpux-dev-playbook.
+To see an example of this collection's usage, see: https://github.com/iambryant/hpux-dev-playbook.
 
 ## License
 
