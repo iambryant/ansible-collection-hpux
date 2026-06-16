@@ -54,7 +54,7 @@ None.
       vars:
         ansible_python_interpreter: /usr/local/bin/python3
       roles:
-        - lpars.hpux.integrity_vm
+        - iambryant.hpux.integrity_vm
 
 ## License
 

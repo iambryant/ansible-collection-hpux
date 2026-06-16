@@ -26,7 +26,7 @@ None.
       vars:
         ansible_python_interpreter: /usr/local/bin/python3
       roles:
-        - lpars.hpux.ntp
+        - iambryant.hpux.ntp
 
 ## License
 

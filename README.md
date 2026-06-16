@@ -10,7 +10,7 @@ You can include this collection in your `requirements.yml` like this:
 
 ```
 collections:
-  - name: lpars.hpux
+  - name: iambryant.hpux
     source: https://github.com/LPARS/ansible-collection-hpux
     type: git
 ```
@@ -22,9 +22,9 @@ for compatible Python packages.
 
 ## Included Roles
 
-  - `lpars.hpux.ignite_ux` ([documentation](https://github.com/lpars/ansible-collection-hpux/blob/main/roles/ignite_ux/README.md))
-  - `lpars.hpux.integrity_vm` ([documentation](https://github.com/lpars/ansible-collection-hpux/blob/main/roles/integrity_vm/README.md))
-  - `lpars.hpux.ntp` ([documentation](https://github.com/lpars/ansible-collection-hpux/blob/main/roles/ntp/README.md))
+  - `iambryant.hpux.ignite_ux` ([documentation](https://github.com/iambryant/ansible-collection-hpux/blob/main/roles/ignite_ux/README.md))
+  - `iambryant.hpux.integrity_vm` ([documentation](https://github.com/iambryant/ansible-collection-hpux/blob/main/roles/integrity_vm/README.md))
+  - `iambryant.hpux.ntp` ([documentation](https://github.com/iambryant/ansible-collection-hpux/blob/main/roles/ntp/README.md))
 
 ## Usage
 

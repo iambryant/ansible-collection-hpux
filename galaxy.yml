@@ -1,4 +1,4 @@
-namespace: lpars
+namespace: iambryant
 
 name: hpux
 
@@ -7,7 +7,7 @@ version: 1.0.0
 readme: README.md
 
 authors:
-  - lpars
+  - iambryant
 
 description: This collection includes roles for automating common tasks in HP-UX.
 
@@ -22,12 +22,12 @@ tags:
 dependencies:
   community.general: ">=8.0.0"
 
-repository: https://github.com/LPARS/ansible-collection-hpux
+repository: https://github.com/iambryant/ansible-collection-hpux
 
-documentation: https://github.com/LPARS/ansible-collection-hpux
+documentation: https://github.com/iambryant/ansible-collection-hpux
 
 homepage: http://example.com
 
-issues: https://github.com/LPARS/ansible-collection-hpux/issues
+issues: https://github.com/iambryant/ansible-collection-hpux/issues
 
 build_ignore: []
