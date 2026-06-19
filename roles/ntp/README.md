@@ -13,7 +13,7 @@ for compatible Python packages.
       - 0.pool.ntp.org
       - 1.pool.ntp.org
 
-The list of NTP servers that you want to use. Defaults to `0.pool.ntp.org` and `1.pool.ntp.org`.
+The list of NTP servers to use. Defaults to `0.pool.ntp.org` and `1.pool.ntp.org`.
 
 ## Dependencies
 
