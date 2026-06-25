@@ -34,20 +34,20 @@
       failed_when: "'Running on an HPVM host' not in integrity_vm_verify.stdout"
       changed_when: false
 
-- name: "Check if vSwitch {{ integrity_vm_vswitch_name }} exists"
+- name: "Check if vSwitch exists"
   ansible.builtin.command: "/opt/hpvm/bin/hpvmnet -v -S {{ integrity_vm_vswitch_name }}"
   register: integrity_vm_vswitch_check
   failed_when: false
   changed_when: false
 
-- name: "Configure vSwitch"
+- name: "vSwitch configuration block"
   when: integrity_vm_vswitch_check.rc != 0
   block:
-    - name: "Create vSwitch {{ integrity_vm_vswitch_name }} on lan{{ integrity_vm_vswitch_lan }}"
+    - name: "Create vSwitch on specified lan interface"
       ansible.builtin.command: >
         "/opt/hpvm/bin/hpvmnet -c -S {{ integrity_vm_vswitch_name }} -n {{ integrity_vm_vswitch_lan }}"
 
-    - name: "Start vSwitch {{ integrity_vm_vswitch_name }}"
+    - name: "Ensure vSwitch is started"
       ansible.builtin.command: >
         "/opt/hpvm/bin/hpvmnet -b -S {{ integrity_vm_vswitch_name }}"
 
