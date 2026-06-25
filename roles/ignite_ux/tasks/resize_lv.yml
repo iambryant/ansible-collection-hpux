@@ -10,5 +10,5 @@
     - name: "Ensure logical partition is correct size"
       ansible.builtin.command: "/usr/sbin/lvextend -L {{ item.lv_size }} {{ item.lv_path }}"
 
-    - name: "Ensure VxFS claims new space"
+    - name: "Ensure VXFS claims new space"
       ansible.builtin.command: "/usr/sbin/fsadm -F vxfs -b {{ item.lv_size }}M {{ item.mount_path }}"
