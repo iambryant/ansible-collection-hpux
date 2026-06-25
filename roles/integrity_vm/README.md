@@ -10,25 +10,25 @@ for compatible Python packages.
 
 ## Role Variables
 
-    hpux_sdux_server: ""
+    hpux_staging_dir: "/var/tmp"
 
-The network depot to install Ignite-UX from. Note: This variable is shared across all roles in this collection
-to centralize package management.
+The temporary directory to copy `.depot` files to for local installs. Defaults to `/var/tmp`. Note: This variable is shared across
+all roles in this collection to centralize depot staging and installation.
 
-    hpux_sdux_server_path: "/var/spool/sw"
+    integrity_vm_depot: ""
 
-The network depot path to install depots from. Defaults to `/var/spool/sw`. Note: This variable is shared across all roles
-in this collection to centralize package management.
+The name of the `.depot` file that will be copied to the target node for a local install. Make sure to place it
+in the `files/` directory adjacent to your playbook.
 
-    integrity_vswitch_name: "vsw0"
+    integrity_vm_vswitch_name: "vsw0"
 
 The name of the default vswitch that vPars/VMs will use. Defaults to `vsw0`.
 
-    integrity_vswitch_lan: "0"
+    integrity_vm_vswitch_lan: "0"
 
 The interface index to bind the vswitch to (e.g. lan1). Defaults to `0` for lan0.
 
-    integrity_guests: []
+    integrity_vm_guests: []
 
 The list of VMs to be created. Supports the following parameters:
 

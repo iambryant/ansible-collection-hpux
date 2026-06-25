@@ -1,8 +1,5 @@
 ---
-hpux_sdux_server: ""
-hpux_sdux_server_path: "/var/spool/sw"
+integrity_vm_vswitch_name: "vsw0"
+integrity_vm_vswitch_lan: "0"
 
-integrity_vswitch_name: "vsw0"
-integrity_vswitch_lan: "0"
-
-integrity_guests: []
+integrity_vm_guests: []

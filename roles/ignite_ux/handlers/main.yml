@@ -1,6 +1,6 @@
 ---
-- name: "reload inetd"
+- name: "Reload inetd"
   ansible.builtin.command: "/usr/sbin/inetd -c"
 
-- name: "refresh nfs shares"
-  command: "/usr/sbin/shareall -F nfs"
+- name: "Refresh nfs shares"
+  ansible.builtin.command: "/usr/sbin/shareall -F nfs"

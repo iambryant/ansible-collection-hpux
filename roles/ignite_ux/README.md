@@ -11,15 +11,15 @@ for compatible Python packages.
 
     hpux_staging_dir: "/var/tmp"
 
-The temporary directory to copy `.depot` files to for local installs. Defaults to `/var/tmp`. Note: This variable is shared across all roles
-in this collection to centralize depot staging and installation.
+The temporary directory to copy `.depot` files to for local installs. Defaults to `/var/tmp`. Note: This variable is shared across
+all roles in this collection to centralize depot staging and installation.
 
-    ignite_depot: ""
+    ignite_ux_depot: ""
 
 The name of the `.depot` file that will be copied to the target node for a local install. Make sure to place it
 in the `files/` directory adjacent to your playbook.
 
-    logical_volumes:
+    ignite_ux_logical_volumes:
       - lv_path: "/dev/vg00/lvol6"
         mount_path: "/opt"
         lv_size: 8192
@@ -30,7 +30,7 @@ in the `files/` directory adjacent to your playbook.
 The list of logical volumes that you want to resize for Ignite-UX. Defaults to the values defined in HP's documentation
 (see top of README).
 
-    ignite_user_files: []
+    ignite_ux_user_files: []
 
 The list of files you want to be copied to the Ignite-UX server. Supports the following parameters:
 
@@ -41,7 +41,7 @@ The list of files you want to be copied to the Ignite-UX server. Supports the fo
 
 Make sure to place the files inside the `files/` directory adjacent to your playbook.
 
-    ignite_user_templates: []
+    ignite_ux_user_templates: []
 
 The list of templates you want to be rendered on the Ignite-UX server. Supports the following parameters:
 

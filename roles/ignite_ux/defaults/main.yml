@@ -1,8 +1,8 @@
 ---
 hpux_staging_dir: "/var/tmp"
-ignite_depot: ""
+ignite_ux_depot: ""
 
-ignite_logical_volumes:
+ignite_ux_logical_volumes:
   - lv_path: "/dev/vg00/lvol6"
     mount_path: "/opt"
     lv_size: 8192
@@ -10,5 +10,5 @@ ignite_logical_volumes:
     mount_path: "/var"
     lv_size: 16384
 
-ignite_user_files: []
-ignite_user_templates: []
+ignite_ux_user_files: []
+ignite_ux_user_templates: []

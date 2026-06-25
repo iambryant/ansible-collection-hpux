@@ -1,51 +1,51 @@
 ---
 - name: "Ensure logical volumes meet size prerequisites"
   ansible.builtin.include_tasks: resize_lv.yml
-  loop: "{{ ignite_logical_volumes }}"
+  loop: "{{ ignite_ux_logical_volumes }}"
 
 - name: "Check if Ignite-UX is installed"
   ansible.builtin.command: "/usr/sbin/swlist Ignite-UX"
-  register: ignite_install_check
+  register: ignite_ux_install_check
   failed_when: false
   changed_when: false
 
-- name: "Installation Block"
-  when: ignite_install_check.rc != 0
+- name: "Installation block"
+  when: ignite_ux_install_check.rc != 0
   block:
-    - name: "Copy depot files to the server"
+    - name: "Ensure depot files are copied"
       ansible.builtin.copy:
-        src: "{{ ignite_depot }}"
-        dest: "{{ hpux_staging_dir }}/ignite.depot"
+        src: "{{ ignite_ux_depot }}"
+        dest: "{{ hpux_staging_dir }}/ignite_ux.depot"
         mode: '0644'
 
-    - name: "Install Ignite-UX"
+    - name: "Ensure Ignite-UX is installed"
       community.general.swdepot:
         name: Ignite-UX
         state: present
-        depot: "{{ hpux_staging_dir }}/ignite.depot"
+        depot: "{{ hpux_staging_dir }}/ignite_ux.depot"
 
-    - name: "Remove depot files after install"
+    - name: "Ensure depot files are absent"
       ansible.builtin.file:
-        path: "{{ hpux_staging_dir }}/ignite.depot"
+        path: "{{ hpux_staging_dir }}/ignite_ux.depot"
         state: absent
 
-- name: "Check if Ignite share is present"
+- name: "Check if Ignite-UX share is present"
   ansible.builtin.command: "share"
-  register: ignite_share_check
+  register: ignite_ux_share_check
   changed_when: false
 
-- name: "Ensure Ignite NFS shares are enabled"
+- name: "Ensure Ignite-UX NFS shares are enabled"
   ansible.builtin.command: "/opt/ignite/lbin/setup_server -n"
-  when: "'/var/opt/ignite/clients' not in ignite_share_check.stdout"
-  register: ignite_share_out
-  failed_when: "'Program completed successfully' not in ignite_share_out.stdout"
+  register: ignite_ux_share_out
+  when: "'/var/opt/ignite/clients' not in ignite_ux_share_check.stdout"
+  failed_when: "'Program completed successfully' not in ignite_ux_share_out.stdout"
 
 - name: "Ensure Ignite archive entry is present in dfstab"
   ansible.builtin.lineinfile:
     path: /etc/dfs/dfstab
     line: "share -F nfs -o anon=2,ro /var/opt/ignite/archives/Rel_B.11.31"
     state: present
-  notify: refresh nfs shares
+  notify: Refresh nfs shares
 
 - name: "Ensure the bootpd daemon is enabled and running"
   ansible.builtin.lineinfile:
@@ -53,7 +53,7 @@
     regexp: '^#\s*(bootps\s+dgram\s+udp\s+wait\s+root\s+/usr/lbin/bootpd\s+bootpd)'
     line: 'bootps dgram udp wait root /usr/lbin/bootpd bootpd'
     backrefs: true
-  notify: reload inetd
+  notify: Reload inetd
 
 - name: "Ensure Rel_B.11.31 directories are present"
   ansible.builtin.file:
@@ -76,13 +76,13 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     mode: '0644'
-  loop: "{{ ignite_user_files }}"
-  when: ignite_user_files | length > 0
+  loop: "{{ ignite_ux_user_files }}"
+  when: ignite_ux_user_files | length > 0
 
 - name: "Ensure user-specified Ignite templates are rendered"
   ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     mode: '0644'
-  loop: "{{ ignite_user_templates }}"
-  when: ignite_user_templates | length > 0
+  loop: "{{ ignite_ux_user_templates }}"
+  when: ignite_ux_user_templates | length > 0

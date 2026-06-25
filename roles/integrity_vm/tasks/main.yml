@@ -1,16 +1,22 @@
 ---
 - name: "Check if Integrity VM is installed"
   ansible.builtin.command: "/opt/hpvm/bin/hpvminfo"
-  register: integrity_check
+  register: integrity_vm_check
   failed_when: false
   changed_when: false
 
-- name: "Perform installation and reboot sequence"
-  when: "'Running on an HPVM host' not in integrity_check.stdout"
+- name: "Installation and reboot sequence block"
+  when: "'Running on an HPVM host' not in integrity_vm_check.stdout"
   block:
-    - name: "Install Integrity VM"
+    - name: "Ensure depot files are copied"
+      ansible.builtin.copy:
+        src: "{{ integrity_vm_depot }}"
+        dest: "{{ hpux_staging_dir }}/integrity_vm.depot"
+        mode: '0644'
+
+    - name: "Ensure Integrity VM is installed"
       ansible.builtin.command: >
-        /usr/sbin/swinstall -x autoreboot=true -s {{ hpux_sdux_server }}:{{ hpux_sdux_server_path }} BB068AA VirtualBase
+        /usr/sbin/swinstall -x autoreboot=true -s {{ hpux_staging_dir }}/integrity_vm.depot BB068AA VirtualBase
       async: 300
       poll: 0
 
@@ -21,28 +27,28 @@
 
     - name: "Verify Integrity VM is installed"
       ansible.builtin.command: "/opt/hpvm/bin/hpvminfo"
-      register: integrity_verify
-      until: "'Running on an HPVM host' in integrity_verify.stdout"
+      register: integrity_vm_verify
+      until: "'Running on an HPVM host' in integrity_vm_verify.stdout"
       retries: 10
       delay: 10
-      failed_when: "'Running on an HPVM host' not in integrity_verify.stdout"
+      failed_when: "'Running on an HPVM host' not in integrity_vm_verify.stdout"
       changed_when: false
 
-- name: "Check if vSwitch {{ integrity_vswitch_name }} exists"
-  ansible.builtin.command: "/opt/hpvm/bin/hpvmnet -v -S {{ integrity_vswitch_name }}"
-  register: integrity_vswitch_check
+- name: "Check if vSwitch {{ integrity_vm_vswitch_name }} exists"
+  ansible.builtin.command: "/opt/hpvm/bin/hpvmnet -v -S {{ integrity_vm_vswitch_name }}"
+  register: integrity_vm_vswitch_check
   failed_when: false
   changed_when: false
 
 - name: "Configure vSwitch"
-  when: integrity_vswitch_check.rc != 0
+  when: integrity_vm_vswitch_check.rc != 0
   block:
-    - name: "Create vSwitch {{ integrity_vswitch_name }} on lan{{ integrity_vswitch_lan }}"
-      ansible.builtin.command: "/opt/hpvm/bin/hpvmnet -c -S {{ integrity_vswitch_name }} -n {{ integrity_vswitch_lan }}"
+    - name: "Create vSwitch {{ integrity_vm_vswitch_name }} on lan{{ integrity_vm_vswitch_lan }}"
+      ansible.builtin.command: "/opt/hpvm/bin/hpvmnet -c -S {{ integrity_vm_vswitch_name }} -n {{ integrity_vm_vswitch_lan }}"
 
-    - name: "Start vSwitch {{ integrity_vswitch_name }}"
-      ansible.builtin.command: "/opt/hpvm/bin/hpvmnet -b -S {{ integrity_vswitch_name }}"
+    - name: "Start vSwitch {{ integrity_vm_vswitch_name }}"
+      ansible.builtin.command: "/opt/hpvm/bin/hpvmnet -b -S {{ integrity_vm_vswitch_name }}"
 
-- name: "Manage Integrity VMs"
+- name: "Ensure Integrity VM guests are present"
   include_tasks: create_vms.yml
-  when: integrity_guests | length > 0
+  when: integrity_vm_guests | length > 0
