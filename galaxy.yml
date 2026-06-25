@@ -19,6 +19,7 @@ license_file: 'LICENSE'
 
 tags:
   - hpux
+  - infrastructure
 
 dependencies:
   community.general: ">=8.0.0"

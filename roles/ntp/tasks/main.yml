@@ -6,7 +6,7 @@
     owner: bin
     group: bin
     mode: '0644'
-  notify: restart ntpd
+  notify: Restart ntpd
 
 - name: "Ensure ntpd is enabled in netdaemons"
   ansible.builtin.lineinfile:

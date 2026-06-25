@@ -1,14 +1,14 @@
 ---
 - name: "Get current size of {{ item.mount_path }}"
   ansible.builtin.shell: "/usr/sbin/lvdisplay {{ item.lv_path }} | grep 'LV Size (Mbytes)' | awk '{print $4}'"
-  register: current_lv_size
+  register: ignite_ux_current_lv_size
   changed_when: false
 
-- name: "Expand partitions block"
-  when: current_lv_size.stdout | int < item.lv_size | int
+- name: "Resize logical partitions block"
+  when: ignite_ux_current_lv_size.stdout | int < item.lv_size | int
   block:
-    - name: "Ensure {{ item.mount_path }} is {{ item.lv_size }}MB"
+    - name: "Ensure logical partition is correct size"
       ansible.builtin.command: "/usr/sbin/lvextend -L {{ item.lv_size }} {{ item.lv_path }}"
 
-    - name: "Ensure VxFS claims new {{ item.mount_path }} space"
+    - name: "Ensure VxFS claims new space"
       ansible.builtin.command: "/usr/sbin/fsadm -F vxfs -b {{ item.lv_size }}M {{ item.mount_path }}"

@@ -52,5 +52,5 @@
         "/opt/hpvm/bin/hpvmnet -b -S {{ integrity_vm_vswitch_name }}"
 
 - name: "Ensure Integrity VM guests are present"
-  include_tasks: create_vms.yml
+  ansible.builtin.include_tasks: create_vms.yml
   when: integrity_vm_guests | length > 0
