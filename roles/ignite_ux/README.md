@@ -11,8 +11,10 @@ for compatible Python packages.
 
     hpux_staging_dir: "/var/tmp"
 
-The temporary directory to copy `.depot` files to for local installs. Defaults to `/var/tmp`. Note: This variable is shared across
-all roles in this collection to centralize depot staging and installation.
+The temporary directory to copy `.depot` files to for local installs. Defaults to `/var/tmp`.
+
+> [!NOTE]
+> This variable is shared across all roles in this collection to centralize depot staging and installation.
 
     ignite_ux_depot: ""
 
