@@ -10,8 +10,8 @@ for compatible Python packages.
 ## Role Variables
 
     ntp_servers:
-      - 0.pool.ntp.org
-      - 1.pool.ntp.org
+      - server 0.pool.ntp.org
+      - server 1.pool.ntp.org
 
 The list of NTP servers to use. Defaults to `0.pool.ntp.org` and `1.pool.ntp.org`.
 
